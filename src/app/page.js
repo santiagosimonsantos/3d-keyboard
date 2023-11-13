@@ -1,9 +1,25 @@
 "use client"
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 export default function App() {
+
+
+    useEffect(() => {
+        function handleKeyDown(e) {
+          e.preventDefault();
+        console.log(e.key + " " + e.keyCode);
+        }
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        // Don't forget to clean up
+        return function cleanup() {
+          document.removeEventListener('keydown', handleKeyDown);
+        }
+      }, []);
+
   const handleKeyDown = (e) => {
     console.log(e.key);
     if (e.key === "Tab") {
